@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom File Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .file-picker-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .file-button {
+            padding: 10px 15px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: fit-content;
+        }
+        
+        .file-button:hover {
+            background-color: #3367d6;
+        }
+        
+        .file-label {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom File Picker</h1>
+    <p>This example shows how to create a file picker without visibly using the HTML file input element.</p>
+    
+    <div class="file-picker-container">
+        <button id="fileButton" class="file-button">Choose File</button>
+        <div id="fileLabel" class="file-label">No file selected</div>
+        
+        <!-- This is the actual file input that we keep hidden -->
+        <input type="file" id="hiddenFileInput" class="hidden">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileButton = document.getElementById('fileButton');
+            const fileLabel = document.getElementById('fileLabel');
+            const hiddenFileInput = document.getElementById('hiddenFileInput');
+            
+            // When our custom button is clicked, trigger the hidden file input
+            fileButton.addEventListener('click', function() {
+                hiddenFileInput.click();
+            });
+            
+            // When a file is selected, update the label
+            hiddenFileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileLabel.textContent = this.files[0].name;
+                } else {
+                    fileLabel.textContent = 'No file selected';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
